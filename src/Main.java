@@ -7,7 +7,7 @@ public class Main {
         Scanner inputs = new Scanner(System.in);
         ArrayList<Property> propertyList = new ArrayList<>();
         while (true) {
-            System.out.println("Welcome to RentEase, would you like to view our listings/n1, add a listing/n2, remove a listing/n3");
+            System.out.println("Welcome to RentEase, would you like to view our listings/n1, add a listing/n2, remove a listing/n3, update a listing/n4");
             int choice = inputs.nextInt();
             inputs.nextLine();
             switch (choice) {
@@ -57,8 +57,53 @@ public class Main {
                             }
                         }
                     }
+                    continue;
                 }
-                continue;
+
+                case 4: {
+                    if (propertyList.size() > 0) {
+                        System.out.println("Provide the owner name");
+                        String checkName = inputs.nextLine();
+                        System.out.println("Provide the address");
+                        String checkAddress = inputs.nextLine();
+
+                        for (Property p : propertyList){
+                            if (p.getOwnerName().equals(checkName) && p.getAddress().equals(checkAddress)) {
+                                propertyList.remove(p);
+                                System.out.println("What would you like to change?");
+                                String choices = inputs.nextLine();
+                                if (choices.equalsIgnoreCase("name")) {
+                                    System.out.println("What would you like to change the owner's name to?");
+                                    String new_Name = inputs.nextLine();
+                                    p.setOwnerName(new_Name);
+                                    System.out.println("You have changed the name to: " + new_Name);
+                                } else if (choices.equalsIgnoreCase("address")) {
+                                    System.out.println("What would you like to change the address to?");
+                                    String new_Address = inputs.nextLine();
+                                    p.setAddress(new_Address);
+                                    System.out.println("You have changed the address to: " + new_Address);
+                                } else if (choices.equalsIgnoreCase("available")) {
+                                    System.out.println("What would you like to change the availability to?");
+                                    boolean new_Available = inputs.nextBoolean();
+                                    inputs.nextLine();
+                                    p.setAvailable(new_Available);
+                                    System.out.println("You have changed the availability to " + new_Available);
+                                } else if (choices.equalsIgnoreCase("rent")) {
+                                    System.out.println("What would you like to change the monthly rent to?");
+                                    int new_Rent = inputs.nextInt();
+                                    inputs.nextLine();
+                                    p.setMonthlyRent(new_Rent);
+                                    System.out.println("You have changed the monthly rent to: $" + new_Rent);
+                                } else {
+                                    System.out.println("Incorrect options");
+                                    continue;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+
 
             }
 
